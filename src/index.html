@@ -8,8 +8,13 @@
 </head>
 <body>
     <div id="map" style="width:500px;height:400px;"></div>
+    <form action="http://localhost:8080/cards" method="post">
+        <input type="text" placeholder="이름" name="author">
+        <input type="password" name="password" id="password" placeholder="password"> 
+        <input style="display: block; width: 350px; height: 200px; margin: 10px;" type="text" name="message" id="content" placeholder="내용">
+    </form>
     <button id="test-btn">test</button>
-    <div id="test"></div>
+    <!-- <div id="test"></div> -->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f31ea200262f0668ca6e5b2a56f9a435"></script>
     <script src="app.js"></script>
 </body>
