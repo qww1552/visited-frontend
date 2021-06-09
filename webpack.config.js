@@ -6,6 +6,7 @@ module.exports = {
         filename: "app.js",
         path: path.resolve(__dirname, `dist`),
     },
+    mode: "development",
     devtool: "source-map",
     devServer: {
         contentBase: path.resolve(__dirname, `dist`),

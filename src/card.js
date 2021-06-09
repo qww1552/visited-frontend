@@ -1,43 +1,59 @@
 const baseUrl = "http://localhost:8080";
 
-function getCard(cardId) {
-    fetch(baseUrl + `/cards${cardId}`, {
+async function getCard(cardId) {
+    const response = await fetch(baseUrl + `/cards/${cardId}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
         },
-    })
-        .then((response) => {
-            console.log(response);
-        })
-        .catch((error) => console.log(error));
+    });
+    const card = await response.json();
+    return card;
 }
 
-function addCard(card) {
-    fetch(baseUrl + `/cards`, {
+async function getCards() {
+    const response = await fetch(baseUrl + "/cards", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    const cards = await response.json();
+    return cards;
+}
+
+async function addCard(card) {
+    const response = await fetch(baseUrl + `/cards`, {
         method: "POST",
         body: JSON.stringify(card),
         headers: {
             "Content-Type": "application/json",
         },
-    })
-        .then((response) => {
-            console.log(response);
-        })
-        .catch((error) => console.log(error));
+    });
+    const addedCard = await response.json();
+    return addedCard;
 }
 
-function deleteCard(cardId) {
-    fetch(baseUrl + `/cards/${cardId}`, {
+async function deleteCard(cardId) {
+    const response = await fetch(baseUrl + `/cards/${cardId}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
         },
-    })
-        .then((response) => {
-            console.log(response);
-        })
-        .catch((error) => console.log(error));
+    });
+    return response;
 }
 
-export { addCard, deleteCard };
+async function updateCard(card) {
+    const response = await fetch(baseUrl + `/cards/${card.id}`, {
+        method: "PUT",
+        body: JSON.stringify(card),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    const updatedCard = await response.json();
+    return updatedCard;
+}
+
+export { getCards, getCard, addCard, updateCard, deleteCard };
