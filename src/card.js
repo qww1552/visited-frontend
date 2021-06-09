@@ -21,7 +21,7 @@ async function getCards() {
     const cards = await response.json();
     return cards;
 }
-
+//// add, delete, update 테스트 필요
 async function addCard(card) {
     const response = await fetch(baseUrl + `/cards`, {
         method: "POST",
