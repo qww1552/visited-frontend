@@ -11,8 +11,9 @@ async function getCard(cardId) {
     return card;
 }
 
-async function getCards() {
-    const response = await fetch(baseUrl + "/cards", {
+async function getCards(position) {
+    const params = `/?latitude=${position.latitude}&longitude=${position.longitude}`;
+    const response = await fetch(baseUrl + "/cards" + params, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
