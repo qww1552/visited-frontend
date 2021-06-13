@@ -6,14 +6,16 @@ import "./main.css";
 const $newMemoForm = document.querySelector("#new-memo");
 const $memoForm = document.querySelector("#memo");
 
-window.onload = () => {
-    console.log("onload");
+window.onload = async () => {
+    const currentPosition = await Geo.getLocation();
+    KakaoMap.setCenter(currentPosition.coords);
     drawPage();
 };
 
 async function drawPage() {
     const currentPosition = await Geo.getLocation();
     const cards = await Card.getCards(currentPosition.coords);
+
     for (const card of cards) {
         const cardPosition = {
             latitude: card.latitude,
@@ -21,10 +23,10 @@ async function drawPage() {
         };
         const marker = KakaoMap.makeMarker(currentPosition.coords, async () => {
             const response = await Card.getCard(card.id);
-
             for (const key in card) {
                 if (Object.hasOwnProperty.call(card, key)) {
                     const element = card[key];
+                    console.log(key);
                     $memoForm.elements[key].value = element;
                 }
             }
@@ -43,6 +45,9 @@ $newMemoForm.onsubmit = async (event) => {
     const currentPosition = await Geo.getLocation();
 
     const data = new FormData(event.target);
+    for (const iterator of data.entries()) {
+        console.log(iterator);
+    }
     const card = {
         author: data.get("author"),
         password: data.get("password"),
@@ -53,8 +58,6 @@ $newMemoForm.onsubmit = async (event) => {
     const response = await Card.addCard(card);
     drawPage();
     KakaoMap.setCenter(currentPosition.coords);
-
-    console.log(response);
 };
 
 $memoForm.onsubmit = async (event) => {
@@ -71,8 +74,8 @@ $memoForm.onsubmit = async (event) => {
         longitude: currentPosition.coords.longitude,
     };
     const response = await Card.updateCard(card);
+    console.log(response);
+
     drawPage();
     KakaoMap.setCenter(currentPosition.coords);
-
-    console.log(response);
 };

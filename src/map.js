@@ -9,7 +9,7 @@ const $map = new kakao.maps.Map(container, options); //지도 생성 및 객체 
 function makeMarker(position, callback) {
     const marker = new kakao.maps.Marker({
         position: new kakao.maps.LatLng(position.latitude, position.longitude),
-        // map: $map,
+        map: $map,
     });
 
     kakao.maps.event.addListener(marker, "click", callback);
@@ -18,30 +18,33 @@ function makeMarker(position, callback) {
 }
 
 function makeInfoWindow(position, content, callback) {
-    var iwContent = `<div class="btn btn-primary" style="padding:5px;">${content}</div>`; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-    const infowindow = new kakao.maps.InfoWindow({
+    var iwContent = `
+    <div class="overlay">
+        ${content}
+    </div>`; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    const customOverlay = new kakao.maps.CustomOverlay({
         position: new kakao.maps.LatLng(position.latitude, position.longitude),
+        clickable: true,
         content: iwContent,
-        removable: true,
-        // map: $map,
+        xAnchor: 0.5,
+        yAnchor: 1.9,
+        map: $map,
     });
-    kakao.maps.event.addListener(infowindow, "click", callback);
-    return infowindow;
+    kakao.maps.event.addListener(customOverlay, "click", callback);
+
+    return customOverlay;
 }
 
 function drawMarkerAndInfoWindow(marker, infowindow) {
     marker.setMap($map);
-    infowindow.open($map, marker);
+    infowindow.setMap($map);
 }
 
 function setCenter(position) {
-    // 이동할 위도 경도 위치를 생성합니다
     var moveLatLon = new kakao.maps.LatLng(
         position.latitude,
         position.longitude
     );
-    // 지도 중심을 부드럽게 이동시킵니다
-    // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
     $map.setCenter(moveLatLon);
 }
 
