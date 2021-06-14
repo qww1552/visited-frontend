@@ -79,3 +79,12 @@ $memoForm.onsubmit = async (event) => {
     drawPage();
     KakaoMap.setCenter(currentPosition.coords);
 };
+
+const $deleteBtn = document.getElementById("delete");
+$deleteBtn.onclick = async (event) => {
+    const data = new FormData($memoForm);
+    const id = data.get("id");
+    const password = data.get("password");
+    const response = await Card.deleteCard(id, password);
+    console.log(response);
+};

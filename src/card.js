@@ -4,7 +4,7 @@ async function getCard(cardId) {
     const response = await fetch(baseUrl + `/cards/${cardId}`, {
         method: "GET",
         headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json; charset=UTF-8",
         },
     });
     const card = await response.json();
@@ -16,30 +16,31 @@ async function getCards(position) {
     const response = await fetch(baseUrl + "/cards" + params, {
         method: "GET",
         headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json; charset=UTF-8",
         },
     });
     const cards = await response.json();
     return cards;
 }
-//// add, delete, update 테스트 필요
+
 async function addCard(card) {
     const response = await fetch(baseUrl + `/cards`, {
         method: "POST",
         body: JSON.stringify(card),
         headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json; charset=UTF-8",
         },
     });
     const addedCard = await response.json();
     return addedCard;
 }
 
-async function deleteCard(cardId) {
+async function deleteCard(cardId, password) {
     const response = await fetch(baseUrl + `/cards/${cardId}`, {
         method: "DELETE",
+        body: password,
         headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json; charset=UTF-8",
         },
     });
     return response;
@@ -50,7 +51,7 @@ async function updateCard(card) {
         method: "PUT",
         body: JSON.stringify(card),
         headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json; charset=UTF-8",
         },
     });
     const updatedCard = await response.json();
