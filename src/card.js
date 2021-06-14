@@ -43,7 +43,7 @@ async function deleteCard(cardId, password) {
             "Content-Type": "application/json; charset=UTF-8",
         },
     });
-    return response;
+    return response.json();
 }
 
 async function updateCard(card) {
