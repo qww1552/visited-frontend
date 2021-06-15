@@ -48,9 +48,10 @@ const submitUpdate = async (event) => {
     };
     const response = await Card.updateCard(card);
     console.log(response);
-
+    if (response.error) {
+        alert(response.message);
+    }
     Render.drawPage();
-    KakaoMap.setCenter(currentPosition.coords);
 };
 
 const submitDelete = async (event) => {
@@ -59,13 +60,23 @@ const submitDelete = async (event) => {
     const password = data.get("password") || " ";
 
     const response = await Card.deleteCard(id, password);
-    Render.drawPage();
     console.log(response);
+    if (response.error) {
+        alert(response.message);
+    }
+    Render.drawPage();
 };
 
-const $modalOpen = document.getElementById("modal-open");
-$modalOpen.onclick = () => {
-    console.log("click");
-};
+function fillFormInput(card) {
+    // const response = await Card.getCard(card.id);
+    for (const key in card) {
+        if (Object.hasOwnProperty.call($memoForm.elements, key)) {
+            const element = card[key];
+            console.log(key);
+            $memoForm.elements[key].value = element;
+        }
+    }
+}
 
-export default init;
+
+export { init, fillFormInput};
