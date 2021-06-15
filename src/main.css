@@ -37,9 +37,15 @@ body {
     border: 1px dotted black;
     border-radius: 10px;
 }
-.infowindow {
-    width: 75px;
-    height: 50px;
+.info-title {
+    display: block;
+    background: #50627F;
+    color: #fff;
+    text-align: center;
+    height: 24px;
+    line-height:22px;
+    border-radius:4px;
+    padding:0px 10px;
 }
 #menu {
     display: flex;
@@ -48,6 +54,7 @@ body {
 
     z-index: 10;
 }
+
 #menu .menu-item {
     width: 50%;
     height: auto;
@@ -62,4 +69,18 @@ input {
 .btn-group {
     display: flex;
 }
-
+.form-textarea {
+    height: 100px;
+}
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #888;
+    width: 17px;
+    height: 17px;
+    background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
+}
+.close:hover {
+    cursor: pointer;
+}

@@ -14,14 +14,27 @@
     <div class="container">
         <div id="map"></div>
         <div class="side-bar">
-            <form id="new-memo">
+            <form id="new-memo" class="form-floating">
                 <h3>새 메모 작성</h3>
-                <input type="text" placeholder="이름" name="author" required>
-                <input type="password" name="password" placeholder="password" required>
-                <input type="text" name="message" placeholder="내용" required>
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="author" name="author"
+                        required>
+                    <label for="floatingInput">Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+                        name="password" required>
+                    <label for="floatingPassword">Password</label>
+                </div>
+                <div class="form-floating">
+                    <textarea class="form-control form-textarea" placeholder="Leave a comment here"
+                        id="floatingTextarea" name="message" style="height: 200px;" required></textarea>
+                    <label for="floatingTextarea">Comments</label>
+                </div>
                 <input type="submit" class="btn btn-primary" value="작성">
             </form>
         </div>
+
     </div>
 
     <!-- Modal -->

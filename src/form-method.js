@@ -18,9 +18,6 @@ const submitAdd = async (event) => {
     const currentPosition = await Geo.getLocation();
 
     const data = new FormData(event.target);
-    for (const iterator of data.entries()) {
-        console.log(iterator);
-    }
     const card = {
         author: data.get("author"),
         password: data.get("password"),
@@ -28,7 +25,12 @@ const submitAdd = async (event) => {
         latitude: currentPosition.coords.latitude,
         longitude: currentPosition.coords.longitude,
     };
+
     const response = await Card.addCard(card);
+    if (response.error) {
+        alert(response.message);
+    }
+
     Render.drawPage();
     KakaoMap.setCenter(currentPosition.coords);
 };
@@ -68,11 +70,9 @@ const submitDelete = async (event) => {
 };
 
 function fillFormInput(card) {
-    // const response = await Card.getCard(card.id);
     for (const key in card) {
         if (Object.hasOwnProperty.call($memoForm.elements, key)) {
             const element = card[key];
-            console.log(key);
             $memoForm.elements[key].value = element;
         }
     }

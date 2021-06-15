@@ -8,6 +8,7 @@ const $map = new kakao.maps.Map(container, options); //지도 생성 및 객체 
 
 let markerAndInfowindowStorage = [];
 let overlayStorage = '';
+
 function makeMarker(position, callback) {
     const marker = new kakao.maps.Marker({
         position: new kakao.maps.LatLng(position.latitude, position.longitude),
@@ -20,20 +21,31 @@ function makeMarker(position, callback) {
 }
 
 function makeOverlay(position, content) {
-    var iwContent = `
-    <div class="overlay">
-        ${content}
-        <div id="menu">
-            <button class="menu-item update" data-bs-toggle="modal"
-            data-bs-target="#exampleModal">수정</button>
+    // var iwContent = `
+    // <div class="overlay">
+    //     ${content}
+    //     <div id="menu">
+    //         <button class="menu-item update" data-bs-toggle="modal"
+    //         data-bs-target="#exampleModal">수정</button>
+    //     </div>
+    // </div>`; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    const iwContent = `<div class="card"  style="">
+    <div class="card-header">
+    <div class="close" onclick="closeOverlay()" title="닫기"></div>
+    </div>
+        <div class="card-body">
+            <p class="card-text">${content.message}</p>
         </div>
-    </div>`; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+        <div class="card-footer text-muted">
+            ${content.author}님이 남긴 메모
+        </div>
+    </div>`
     const customOverlay = new kakao.maps.CustomOverlay({
         position: new kakao.maps.LatLng(position.latitude, position.longitude),
         clickable: true,
         content: iwContent,
-        xAnchor: 0.5,
-        yAnchor: 0,
+        xAnchor: 0,
+        yAnchor: 1.5,
         map: $map,
     });
     if (overlayStorage) {
@@ -44,7 +56,7 @@ function makeOverlay(position, content) {
 
 function makeInfoWindow(position, content) {
     var iwContent = `
-    <div class="infowindow">
+    <div class="info-title">
         ${content}
     </div>`; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
     const infoWindow = new kakao.maps.InfoWindow({
@@ -52,7 +64,6 @@ function makeInfoWindow(position, content) {
         content: iwContent,
         map: $map,
     });
-    
     return infoWindow;
 }
 
@@ -88,5 +99,5 @@ export {
     makeOverlay,
     makeInfoWindow,
     makeMarker,
-    clearMap,
+    clearMap
 };
