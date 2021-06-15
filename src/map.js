@@ -6,8 +6,8 @@ var options = {
 };
 const $map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 
-let markerAndOverlay = [];
-
+let markerAndInfowindowStorage = [];
+let overlayStorage = '';
 function makeMarker(position, callback) {
     const marker = new kakao.maps.Marker({
         position: new kakao.maps.LatLng(position.latitude, position.longitude),
@@ -19,36 +19,55 @@ function makeMarker(position, callback) {
     return marker;
 }
 
-function makeInfoWindow(position, content, callback) {
+function makeOverlay(position, content) {
     var iwContent = `
     <div class="overlay">
         ${content}
+        <div id="menu">
+            <button class="menu-item update">수정</button>
+            <button class="menu-item delete">삭제</button>
+        </div>
     </div>`; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
     const customOverlay = new kakao.maps.CustomOverlay({
         position: new kakao.maps.LatLng(position.latitude, position.longitude),
         clickable: true,
         content: iwContent,
         xAnchor: 0.5,
-        yAnchor: 1.9,
+        yAnchor: 0,
         map: $map,
     });
-    kakao.maps.event.addListener(customOverlay, "click", callback);
-
-    return customOverlay;
+    if (overlayStorage) {
+        overlayStorage.setMap(null)
+    }
+    overlayStorage = customOverlay;
 }
 
-function drawMarkerAndOverlay(marker, overlay) {
-    markerAndOverlay.push([marker, overlay]);
+function makeInfoWindow(position, content) {
+    var iwContent = `
+    <div class="infowindow">
+        ${content}
+    </div>`; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    const infoWindow = new kakao.maps.InfoWindow({
+        position: new kakao.maps.LatLng(position.latitude, position.longitude),
+        content: iwContent,
+        map: $map,
+    });
+    
+    return infoWindow;
+}
+
+function drawMarkerAndOverlay(marker, infowindow) {
+    markerAndInfowindowStorage.push([marker, infowindow]);
     marker.setMap($map);
-    overlay.setMap($map);
+    infowindow.open($map,marker);
 }
 
 function clearMap() {
-    for (const icons of markerAndOverlay) {
+    for (const icons of markerAndInfowindowStorage) {
         icons[0].setMap(null);
         icons[1].setMap(null);
     }
-    markerAndOverlay = [];
+    markerAndInfowindowStorage = [];
 }
 
 function setCenter(position) {
@@ -61,7 +80,8 @@ function setCenter(position) {
 
 export {
     setCenter,
-    drawMarkerAndOverlay as drawMarkerAndInfoWindow,
+    drawMarkerAndOverlay,
+    makeOverlay,
     makeInfoWindow,
     makeMarker,
     clearMap,

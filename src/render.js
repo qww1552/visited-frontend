@@ -14,15 +14,17 @@ async function drawPage() {
             latitude: card.latitude,
             longitude: card.longitude,
         };
-        const marker = KakaoMap.makeMarker(cardPosition, async () => {
+        const marker = KakaoMap.makeMarker(cardPosition, () => {
             FormMethod.fillFormInput(card);
+            KakaoMap.makeOverlay(cardPosition,card.message);
         });
 
         const infowindow = KakaoMap.makeInfoWindow(
             cardPosition,
-            card.message
+            card.author,
         );
-        KakaoMap.drawMarkerAndInfoWindow(marker, infowindow);
+
+        KakaoMap.drawMarkerAndOverlay(marker, infowindow);
     }
 }
 
