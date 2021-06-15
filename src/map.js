@@ -6,6 +6,8 @@ var options = {
 };
 const $map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 
+let markerAndOverlay = [];
+
 function makeMarker(position, callback) {
     const marker = new kakao.maps.Marker({
         position: new kakao.maps.LatLng(position.latitude, position.longitude),
@@ -35,9 +37,18 @@ function makeInfoWindow(position, content, callback) {
     return customOverlay;
 }
 
-function drawMarkerAndInfoWindow(marker, infowindow) {
+function drawMarkerAndOverlay(marker, overlay) {
+    markerAndOverlay.push([marker, overlay]);
     marker.setMap($map);
-    infowindow.setMap($map);
+    overlay.setMap($map);
+}
+
+function clearMap() {
+    for (const icons of markerAndOverlay) {
+        icons[0].setMap(null);
+        icons[1].setMap(null);
+    }
+    markerAndOverlay = [];
 }
 
 function setCenter(position) {
@@ -48,4 +59,10 @@ function setCenter(position) {
     $map.setCenter(moveLatLon);
 }
 
-export { setCenter, drawMarkerAndInfoWindow, makeInfoWindow, makeMarker };
+export {
+    setCenter,
+    drawMarkerAndOverlay as drawMarkerAndInfoWindow,
+    makeInfoWindow,
+    makeMarker,
+    clearMap,
+};

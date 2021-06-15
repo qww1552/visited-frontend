@@ -1,8 +1,11 @@
 import * as Geo from "./geolocation";
 import * as Card from "./card";
 import * as KakaoMap from "./map";
-const $memoForm = document.getElementById("memo");
+import * as FormMethod from "./form-method"
+
 async function drawPage() {
+    KakaoMap.clearMap();
+    
     const currentPosition = await Geo.getLocation();
     const cards = await Card.getCards(currentPosition.coords);
 
@@ -11,19 +14,12 @@ async function drawPage() {
             latitude: card.latitude,
             longitude: card.longitude,
         };
-        const marker = KakaoMap.makeMarker(currentPosition.coords, async () => {
-            const response = await Card.getCard(card.id);
-            for (const key in card) {
-                if (Object.hasOwnProperty.call(card, key)) {
-                    const element = card[key];
-                    console.log(key);
-                    $memoForm.elements[key].value = element;
-                }
-            }
+        const marker = KakaoMap.makeMarker(cardPosition, async () => {
+            FormMethod.fillFormInput(card);
         });
 
         const infowindow = KakaoMap.makeInfoWindow(
-            currentPosition.coords,
+            cardPosition,
             card.message
         );
         KakaoMap.drawMarkerAndInfoWindow(marker, infowindow);
@@ -31,3 +27,4 @@ async function drawPage() {
 }
 
 export { drawPage };
+
