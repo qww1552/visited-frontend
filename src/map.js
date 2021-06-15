@@ -24,8 +24,8 @@ function makeOverlay(position, content) {
     <div class="overlay">
         ${content}
         <div id="menu">
-            <button class="menu-item update">수정</button>
-            <button class="menu-item delete">삭제</button>
+            <button class="menu-item update" data-bs-toggle="modal"
+            data-bs-target="#exampleModal">수정</button>
         </div>
     </div>`; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
     const customOverlay = new kakao.maps.CustomOverlay({
@@ -56,7 +56,7 @@ function makeInfoWindow(position, content) {
     return infoWindow;
 }
 
-function drawMarkerAndOverlay(marker, infowindow) {
+function drawMarkerAndInfowindow(marker, infowindow) {
     markerAndInfowindowStorage.push([marker, infowindow]);
     marker.setMap($map);
     infowindow.open($map,marker);
@@ -66,6 +66,10 @@ function clearMap() {
     for (const icons of markerAndInfowindowStorage) {
         icons[0].setMap(null);
         icons[1].setMap(null);
+    }
+    if (overlayStorage) {
+        overlayStorage.setMap(null);
+        overlayStorage = '';
     }
     markerAndInfowindowStorage = [];
 }
@@ -80,7 +84,7 @@ function setCenter(position) {
 
 export {
     setCenter,
-    drawMarkerAndOverlay,
+    drawMarkerAndInfowindow,
     makeOverlay,
     makeInfoWindow,
     makeMarker,

@@ -33,8 +33,9 @@ body {
 .overlay {
     width: 75px;
     height: 50px;
-    background-color: none;
+    background-color: white;
     border: 1px dotted black;
+    border-radius: 10px;
 }
 .infowindow {
     width: 75px;
@@ -54,6 +55,11 @@ body {
 #menu .update{
     background-color: blue;
 }
-#menu .delete {
-    background-color: red;
+input {
+    display: block;
 }
+
+.btn-group {
+    display: flex;
+}
+

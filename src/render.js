@@ -24,7 +24,7 @@ async function drawPage() {
             card.author,
         );
 
-        KakaoMap.drawMarkerAndOverlay(marker, infowindow);
+        KakaoMap.drawMarkerAndInfowindow(marker, infowindow);
     }
 }
 
