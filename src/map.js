@@ -29,15 +29,18 @@ function makeOverlay(position, content) {
     //         data-bs-target="#exampleModal">수정</button>
     //     </div>
     // </div>`; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-    const iwContent = `<div class="card"  style="">
+    const iwContent = `<div class="card">
     <div class="card-header">
+    ${content.author}님이 남긴 메모
+
     <div class="close" onclick="closeOverlay()" title="닫기"></div>
     </div>
         <div class="card-body">
             <p class="card-text">${content.message}</p>
         </div>
         <div class="card-footer text-muted">
-            ${content.author}님이 남긴 메모
+                <button class="menu-item update" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">수정</button>
         </div>
     </div>`
     const customOverlay = new kakao.maps.CustomOverlay({
@@ -90,7 +93,7 @@ function setCenter(position) {
         position.latitude,
         position.longitude
     );
-    $map.setCenter(moveLatLon);
+    $map.panTo(moveLatLon);
 }
 
 export {

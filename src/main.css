@@ -51,7 +51,7 @@ body {
     display: flex;
     width: 100px;
     height: auto;
-
+    font-size: 14px;
     z-index: 10;
 }
 
@@ -73,9 +73,7 @@ input {
     height: 100px;
 }
 .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    margin-left: 10px;
     color: #888;
     width: 17px;
     height: 17px;
@@ -83,4 +81,30 @@ input {
 }
 .close:hover {
     cursor: pointer;
+
+}
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 8px;
+    padding-right: 10px;
+}
+.card-text{
+    white-space: normal;
+    word-break:keep-all;
+
+
+}
+.card {
+    font-size: 14px;
+    width: 250px;
+    animation: popup 0.25s;
+}
+
+@keyframes popup {
+
+    from { transform:scale(0.8); }
+    /* 95% { transform: scale(1.05);} */
+    to { transform: scale(1); }
+
 }

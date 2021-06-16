@@ -16,6 +16,7 @@ async function drawPage() {
         };
         const marker = KakaoMap.makeMarker(cardPosition, () => {
             FormMethod.fillFormInput(card);
+            KakaoMap.setCenter(cardPosition);
             KakaoMap.makeOverlay(cardPosition,card);
         });
 
