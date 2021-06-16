@@ -465,7 +465,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "updateCard": () => (/* binding */ updateCard),
 /* harmony export */   "deleteCard": () => (/* binding */ deleteCard)
 /* harmony export */ });
-const baseUrl = "http://localhost:8080";
+const baseUrl = "http://117.17.102.74:8080";
 
 async function getCard(cardId) {
     const response = await fetch(baseUrl + `/cards/${cardId}`, {

@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:8080";
+const baseUrl = "http://117.17.102.74:8080";
 
 async function getCard(cardId) {
     const response = await fetch(baseUrl + `/cards/${cardId}`, {
