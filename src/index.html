@@ -35,7 +35,9 @@
                         id="floatingTextarea" name="message" style="height: 200px;" required></textarea>
                     <label for="floatingTextarea">Comments</label>
                 </div>
-                <input type="submit" class="btn btn-primary" value="작성">
+                <div class="btn-group">
+                    <input type="submit" class="btn btn-primary" value="작성">
+                </div>
             </form>
         </div>
 
@@ -46,21 +48,37 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="memo">
                     <div class="modal-body">
 
                         <h3>메모 수정</h3>
-                        <label for="modal-form-id">id</label>
-                        <input type="number" id="modal-form-id" placeholder="id" name="id" readonly>
-                        <label for="modal-form-author">이름</label>
-                        <input type="text" id="modal-form-author" placeholder="이름" name="author">
-                        <label for="password">비밀번호</label>
-                        <input type="password" name="password" id="password" placeholder="password" required>
-                        <label for="modal-form-message">내용</label>
-                        <input type="text" id="modal-form-message" name="message" placeholder="내용" multiple>
+                        <div class="form-floating form-control-sm">
+                            <input type="number" class="form-control form-control-sm" id="modal-form-id"
+                                placeholder="id" name="id" readonly>
+                            <label for="modal-form-author">id</label>
+                        </div>
+
+                        <div class="form-floating form-control-sm">
+                            <input type="text" class="form-control form-control-sm" id="modal-form-author"
+                                placeholder="author" name="author" required>
+                            <label for="modal-form-author">Name</label>
+                        </div>
+
+                        <div class="form-floating mb-3 form-control-sm">
+                            <input type="password" class="form-control form-control-sm" id="password"
+                                placeholder="Password" name="password" required>
+                            <label for="password">Password</label>
+                        </div>
+
+                        <div class="form-floating form-control-sm">
+                            <textarea class="form-control form-textarea form-control-sm"
+                                placeholder="Leave a comment here" id="modal-form-message" name="message"
+                                style="height: 200px;" required></textarea>
+                            <label for="modal-form-message">Comments</label>
+                        </div>
 
                     </div>
                     <div class="modal-footer">

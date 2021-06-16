@@ -1,7 +1,7 @@
 html,
 body {
     margin: 0;
-    padding: 0;
+    padding: 25px;
     width: 100%;
     height: 100%;
 }
@@ -12,21 +12,24 @@ body {
 
 .container {
     margin: 0;
-    padding: 0;
+    padding: 10px;
     width: 100%;
     height: 100%;
     border: 1px solid black;
+    border-radius: 5px;
     display: flex;
 }
 
 .side-bar {
-    margin: 0;
-    border: 1px dotted red;
+    margin: 10px;
+    padding-top: 50px;
     display: block;
     width: 30%;
 }
+.side-bar #new-memo {
+
+}
 #map {
-    border: 1px dotted blue;
     width: 100%;
     height: 100%;
 }
@@ -47,41 +50,16 @@ body {
     border-radius:4px;
     padding:0px 10px;
 }
-#menu {
-    display: flex;
-    width: 100px;
-    height: auto;
-    font-size: 14px;
-    z-index: 10;
-}
-
-#menu .menu-item {
-    width: 50%;
-    height: auto;
-}
-#menu .update{
-    background-color: blue;
-}
-input {
-    display: block;
-}
 
 .btn-group {
-    display: flex;
+    float: right;
 }
 .form-textarea {
     height: 100px;
 }
-.close {
-    margin-left: 10px;
-    color: #888;
-    width: 17px;
-    height: 17px;
-    background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
-}
-.close:hover {
-    cursor: pointer;
 
+.btn-close:hover {
+    cursor: pointer;
 }
 .card-header {
     display: flex;
@@ -92,8 +70,6 @@ input {
 .card-text{
     white-space: normal;
     word-break:keep-all;
-
-
 }
 .card {
     font-size: 14px;
@@ -104,7 +80,10 @@ input {
 @keyframes popup {
 
     from { transform:scale(0.8); }
-    /* 95% { transform: scale(1.05);} */
     to { transform: scale(1); }
 
+}
+
+#floatingTextarea {
+    margin-bottom: 20px;
 }

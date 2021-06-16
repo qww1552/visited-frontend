@@ -34,7 +34,7 @@ function makeOverlay(position, content) {
         <div class="card-header">
             ${content.author}님이 남긴 메모
 
-            <div class="close" title="닫기"></div>
+            <div class="btn-close" title="닫기"></div>
         </div>
     
         <div class="card-body">
@@ -42,8 +42,10 @@ function makeOverlay(position, content) {
         </div>
     
         <div class="card-footer text-muted">
-                <button class="menu-item update" data-bs-toggle="modal"
+            <div class="btn-group">
+                <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
                 data-bs-target="#exampleModal">수정</button>
+            </div>
         </div>
     </div>`
     const customOverlay = new kakao.maps.CustomOverlay({
@@ -58,8 +60,8 @@ function makeOverlay(position, content) {
         overlayStorage.setMap(null)
     }
     overlayStorage = customOverlay;
-    
-    const $closeBtn = document.querySelector(".close");
+
+    const $closeBtn = document.querySelector(".btn-close");
     $closeBtn.addEventListener("click",()=>overlayStorage.setMap(null));
 }
 
